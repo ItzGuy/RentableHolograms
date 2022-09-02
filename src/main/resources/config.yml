@@ -1,0 +1,44 @@
+# Rentable Holograms by ItzGuy
+#
+# Redistribution or reselling this plugin will result in your access to the plugin removed!
+
+holograms-layouts:
+  # default hologram variables:
+  # [price] - price for a day of rental
+  # [id] - hologram identifier from holograms.yml
+  default:
+    - "&a&nRent a hologram"
+    - ""
+    - "&7Right click this hologram to rent it!"
+    - "&7Price for a day of rental is: &e[price]"
+    - "&8Hologram ID: [id]"
+
+  # rented hologram variables:
+  # [lines] - the hologram lines the player has chosen
+  # [player] - player who rented the hologram
+  # [time] - the time remaining of the rental (returns a value formatted: 0D 2H 26M 15S)
+  # [price] - price for a day of rental
+  # [id] - hologram identifier from holograms.yml
+  rented:
+    - "&a&nRented hologram"
+    - ""
+    - "[lines]"
+    - ""
+    - "&7Hologram rented by: &e[player]"
+    - "&7Rental ends in: &e[time]"
+    - "&8Hologram ID: [id]"
+
+settings:
+  # the amount of lines players will be able to edit
+  # ranges between 1-7 any higher or lower from these range will cause errors
+  lines: 4
+
+  # if true the player that rented a hologram will be able to rent it again after it expired
+  allow-repeatitation: false
+
+  # the maximum days players will be able to rent the hologram and wont allow any higher
+  # if set to 0 it will count as infinite
+  max-days: 3
+
+  # the starting amount of days players will recieve apon renting a hologram
+  starting-days: 1

@@ -1,0 +1,20 @@
+name: RentableHolograms
+version: '${project.version}'
+main: me.itzguy.rentableholograms.RentableHolograms
+api-version: 1.16
+softdepend: [ HolographicDisplays, Vault ]
+authors: [ ItzGuy ]
+description: Create ads through holograms that players can rent!
+commands:
+  rentableholograms:
+    aliases: [ rh ]
+    description: Admin command to control holograms
+    permission: rentableholograms.commands.rentableholograms
+    permission-message: &cMissing Permissions!
+permissions:
+  rentableholograms.commands.rentableholograms:
+    default: OP
+    description: Permission to use admin command (/rentableholograms)
+  rentableholograms.rent:
+    default: OP
+    description: Permission to rent a hologram
