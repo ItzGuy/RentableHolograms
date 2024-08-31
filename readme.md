@@ -4,7 +4,8 @@
 
 # Features
 - Everything is being edited using GUI
-- Custom items support 
+- Moderation tools
+- Logging system in addition to discord webhook support
 
 ## Commands - Permissions - Description
 
