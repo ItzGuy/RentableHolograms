@@ -19,7 +19,8 @@ public class StringUtils {
         if (version.contains("1.16") ||
                 version.contains("1.17") ||
                 version.contains("1.18") ||
-                version.contains("1.19")) {
+                version.contains("1.19") ||
+                version.contains("1.20")) {
 
             Matcher match = hexPatternt.matcher(text);
 
@@ -107,6 +108,11 @@ public class StringUtils {
         return newTextList;
     }
 
+    public static String stripColorCodes(String text) {
+
+        return ChatColor.stripColor(color(text));
+    }
+
     public static int getNextID() {
         int number = 0;
 
@@ -119,5 +125,25 @@ public class StringUtils {
         }
 
         return number+1;
+    }
+
+    public static List<String> compressList(String[] list) {
+        //remove empty spaces from bottom of list until value found
+        List<String> finalList = new ArrayList<>();
+        int lastI = 0;
+        for (int i = list.length-1; i >= 0 ; i--) {
+            if (list[i] == null || list[i].isEmpty()) {
+                //line is empty continue deleting...
+            } else { // hit a value stop
+                lastI = i;
+                break;
+            }
+        }
+
+        for (int i = 0; i <= lastI; i++) {
+            finalList.add(list[i]);
+        }
+
+        return finalList;
     }
 }

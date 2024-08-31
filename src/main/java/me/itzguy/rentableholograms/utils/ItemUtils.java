@@ -8,6 +8,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 
 import java.util.Arrays;
+import java.util.List;
 
 import static me.itzguy.rentableholograms.utils.StringUtils.color;
 
@@ -19,6 +20,22 @@ public class ItemUtils {
 
         itemMeta.setDisplayName(color(name));
         itemMeta.setLore(color(Arrays.asList(lore)));
+
+        itemMeta.addItemFlags(ItemFlag.values());
+
+        item.setItemMeta(itemMeta);
+
+        return item;
+    }
+
+    public static ItemStack getItem(Material material, String name, int amount, String lore) {
+        ItemStack item = new ItemStack(material, amount);
+        ItemMeta itemMeta = item.getItemMeta();
+
+        itemMeta.setDisplayName(color(name));
+        List<String> loreL = Arrays.asList(lore.split("%n%"));
+        //itemMeta.setLore(color(Arrays.asList(lore)));
+        itemMeta.setLore(color(loreL));
 
         itemMeta.addItemFlags(ItemFlag.values());
 

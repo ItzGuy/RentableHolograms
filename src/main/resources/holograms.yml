@@ -1,12 +1,14 @@
-id(1,2,3):
-  location:
-    world: world
-    x: 1
-    y: 1
-    z: 1
-  owner: player
-  timestamp: 123456789
-  days: 1
-  price: 50
-  lines:
-    - "idk"
+#id(1,2,3):
+#  location:
+#    world: world
+#    x: 1
+#    y: 1
+#    z: 1
+#  owner: player
+#  timestamp: 123456789
+#  days: 1
+#  price: 50
+#  lines:
+#    - "idk"
+#
+# EXAMPLE

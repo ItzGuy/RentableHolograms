@@ -1,7 +1,9 @@
 package me.itzguy.rentableholograms.commands;
 
+import lombok.Getter;
 import me.itzguy.rentableholograms.commands.subcommands.Create;
 import me.itzguy.rentableholograms.commands.subcommands.Delete;
+import me.itzguy.rentableholograms.commands.subcommands.Identify;
 import me.itzguy.rentableholograms.commands.subcommands.Reload;
 import me.itzguy.rentableholograms.managers.LanguageManager;
 import me.itzguy.rentableholograms.utils.StringUtils;
@@ -16,12 +18,18 @@ import java.util.List;
 
 public class MainCommandManager implements CommandExecutor, TabCompleter {
 
+    @Getter
     private static ArrayList<SubCommand> subcommands = new ArrayList<>();
+    @Getter
+    private static Identify identifyManager;
 
     public void loadSubCommands() {
+        identifyManager = new Identify();
+
         getSubcommands().add(new Create());
         getSubcommands().add(new Delete());
         getSubcommands().add(new Reload());
+        getSubcommands().add(identifyManager);
     }
 
     @Override
@@ -58,10 +66,6 @@ public class MainCommandManager implements CommandExecutor, TabCompleter {
             player.sendMessage(StringUtils.color("&e---------------------------------"));
         }
         return true;
-    }
-
-    public static ArrayList<SubCommand> getSubcommands() {
-        return subcommands;
     }
 
     @Override

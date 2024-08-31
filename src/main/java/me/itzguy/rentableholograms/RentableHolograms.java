@@ -2,10 +2,12 @@ package me.itzguy.rentableholograms;
 
 import lombok.Getter;
 import me.itzguy.rentableholograms.commands.MainCommandManager;
-import me.itzguy.rentableholograms.managers.HologramManager;
-import me.itzguy.rentableholograms.managers.HologramsConfig;
-import me.itzguy.rentableholograms.managers.LanguageManager;
+import me.itzguy.rentableholograms.listeners.ClickHologramListener;
+import me.itzguy.rentableholograms.listeners.ClickInventoryListener;
+import me.itzguy.rentableholograms.managers.*;
+import me.itzguy.rentableholograms.placeholders.TimeLeftPlaceholder;
 import me.itzguy.rentableholograms.utils.GetUserInput;
+import me.itzguy.rentableholograms.utils.TickLoop;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.RegisteredServiceProvider;
@@ -19,14 +21,18 @@ public final class RentableHolograms extends JavaPlugin {
     @Getter
     private Economy econ = null;
 
+    private int loopID = -1;
+
     @Override
     public void onEnable() {
         instance = this;
 
         // Loading all config files
         saveDefaultConfig();
+        ConfigManager.loadConfigSettings();
         LanguageManager.loadMessages();
         HologramsConfig.loadHologramsConfig();
+        BlacklistManager.loadBlacklist();
 
 
 
@@ -36,8 +42,8 @@ public final class RentableHolograms extends JavaPlugin {
             getServer().getPluginManager().disablePlugin(this);
             return;
         }
-        if (!Bukkit.getPluginManager().isPluginEnabled("HolographicDisplays")) {
-            getLogger().severe("Missing dependency HolographicDisplay!");
+        if (!Bukkit.getPluginManager().isPluginEnabled("DecentHolograms")) {
+            getLogger().severe("Missing dependency DecentHolograms!");
             getServer().getPluginManager().disablePlugin(this);
             return;
         }
@@ -45,7 +51,8 @@ public final class RentableHolograms extends JavaPlugin {
 
 
         // Registering listeners
-
+        Bukkit.getPluginManager().registerEvents(new ClickInventoryListener(), this);
+        Bukkit.getPluginManager().registerEvents(new ClickHologramListener(), this);
 
 
         // Registering commands
@@ -58,10 +65,21 @@ public final class RentableHolograms extends JavaPlugin {
 
         // Starting tasks and loading holograms
         HologramManager.loadAllHolograms();
+
+        //Load placeholders
+        if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
+            new TimeLeftPlaceholder().register();
+        }
+
+        loopID = Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new TickLoop(), 20, 20);
     }
 
     @Override
     public void onDisable() {
+        if (loopID != -1)
+            Bukkit.getScheduler().cancelTask(loopID);
+
+        HologramManager.clearAllHolograms();
     }
 
     private boolean setupEconomy() {

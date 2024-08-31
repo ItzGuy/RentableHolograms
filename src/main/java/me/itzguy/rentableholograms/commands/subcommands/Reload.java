@@ -1,9 +1,9 @@
 package me.itzguy.rentableholograms.commands.subcommands;
 
 import me.itzguy.rentableholograms.RentableHolograms;
+import me.itzguy.rentableholograms.commands.MainCommandManager;
 import me.itzguy.rentableholograms.commands.SubCommand;
-import me.itzguy.rentableholograms.managers.HologramManager;
-import me.itzguy.rentableholograms.managers.HologramsConfig;
+import me.itzguy.rentableholograms.managers.*;
 import org.bukkit.entity.Player;
 
 public class Reload extends SubCommand {
@@ -24,8 +24,17 @@ public class Reload extends SubCommand {
 
     @Override
     public void perform(Player player, String[] args) {
+        if (!player.hasPermission("rentableholograms.commands.reload")) {
+            player.sendMessage(LanguageManager.getMessage("no-permission"));
+            return;
+        }
+        MainCommandManager.getIdentifyManager().fixShow();
+
         RentableHolograms.getInstance().reloadConfig();
+        ConfigManager.loadConfigSettings();
         HologramsConfig.reloadHologramsConfig();
+        LanguageManager.reloadMessages();
         HologramManager.loadAllHolograms();
+        BlacklistManager.reloadBlacklist();
     }
 }

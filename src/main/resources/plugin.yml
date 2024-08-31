@@ -1,8 +1,8 @@
 name: RentableHolograms
 version: '${project.version}'
 main: me.itzguy.rentableholograms.RentableHolograms
-api-version: 1.16
-softdepend: [ HolographicDisplays, Vault ]
+api-version: 1.13
+softdepend: [ DecentHolograms, PlaceholderAPI, Vault ]
 authors: [ ItzGuy ]
 description: Create ads through holograms that players can rent!
 commands:
@@ -18,3 +18,30 @@ permissions:
   rentableholograms.rent:
     default: OP
     description: Permission to rent a hologram
+  rentableholograms.commands.create:
+    default: OP
+    description: Permission to use admin command Create (/rentableholograms create)
+  rentableholograms.commands.delete:
+    default: OP
+    description: Permission to use admin command Delete (/rentableholograms delete)
+  rentableholograms.commands.reload:
+    default: OP
+    description: Permission to use admin command Reload (/rentableholograms reload)
+  rentableholograms.commands.identify:
+    default: OP
+    description: Permission to use admin command Identify (/rentableholograms identify)
+  rentableholograms.filter.profanity.bypass:
+    default: OP
+    description: Permission to bypass profanity filter
+  rentableholograms.color.bypass:
+    default: OP
+    description: Permission to use colors
+  rentableholograms.admin.edit:
+    default: OP
+    description: Permission to use Sneak + R Click to modify a player hologram
+  rentableholograms.economy.bypass:
+    default: not op
+    description: Permission to avoid payments upon renting and extending rent
+  rentableholograms.restrictions.bypass:
+    default: not op
+    description: Permission to bypass max days and multiple holograms restrictions

@@ -26,6 +26,11 @@ public class Create extends SubCommand {
 
     @Override
     public void perform(Player player, String[] args) {
+        if (!player.hasPermission("rentableholograms.commands.create")) {
+            player.sendMessage(LanguageManager.getMessage("no-permission"));
+            return;
+        }
+
         if (args.length != 2) {
             player.sendMessage(LanguageManager.getMessage("invalid-args"));
             return;
@@ -51,6 +56,7 @@ public class Create extends SubCommand {
         HologramsConfig.getHologramsConfig().set(id + ".price", price);
         HologramsConfig.getHologramsConfig().set(id + ".owner", "none");
         HologramsConfig.getHologramsConfig().set(id + ".timestamp", 0);
+        HologramsConfig.getHologramsConfig().set(id + ".days", 0);
         HologramsConfig.getHologramsConfig().set(id + ".location.world", world);
         HologramsConfig.getHologramsConfig().set(id + ".location.x", x);
         HologramsConfig.getHologramsConfig().set(id + ".location.y", y);
