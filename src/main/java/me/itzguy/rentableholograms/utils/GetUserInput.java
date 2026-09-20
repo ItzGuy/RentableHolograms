@@ -22,6 +22,7 @@ public class GetUserInput implements Listener {
     public static void getUserInput(Player player, String message, Consumer<String> consumer) {
         playersInputs.put(player, consumer);
         playersTitles.put(player, new TitleObject("", message, 0, 45, 0));
+        player.sendMessage(StringUtils.color(message));
 
     }
 

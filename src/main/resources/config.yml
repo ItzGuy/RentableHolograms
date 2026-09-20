@@ -1,6 +1,6 @@
 # Rentable Holograms by ItzGuy
 #
-# Redistribution or reselling this plugin will result in your access to the plugin removed!
+# Redistribution or reselling this plugin will result in your access to the plugin revoked!
 
 holograms-layouts:
   # default hologram variables:
@@ -40,7 +40,7 @@ settings:
   # the maximum amount of holograms players will be able to rent at a time
   max-holograms: 1
 
-  # the starting amount of days players will recieve apon renting a hologram
+  # the starting amount of days players will receive upon renting a hologram
   starting-days: 1
 
   # the method which the plugin takes input from players. (ANVIL (MAX 30 CHARACTERS), CHAT)

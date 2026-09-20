@@ -9,6 +9,7 @@ import me.itzguy.rentableholograms.placeholders.TimeLeftPlaceholder;
 import me.itzguy.rentableholograms.utils.GetUserInput;
 import me.itzguy.rentableholograms.utils.TickLoop;
 import net.milkbowl.vault.economy.Economy;
+import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -71,7 +72,10 @@ public final class RentableHolograms extends JavaPlugin {
             new TimeLeftPlaceholder().register();
         }
 
-        loopID = Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new TickLoop(), 20, 20);
+        int pluginId = 34174;
+        Metrics metrics = new Metrics(this, pluginId);
+
+        loopID = Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new TickLoop(), 300, 20);
     }
 
     @Override
@@ -80,6 +84,8 @@ public final class RentableHolograms extends JavaPlugin {
             Bukkit.getScheduler().cancelTask(loopID);
 
         HologramManager.clearAllHolograms();
+
+        MainCommandManager.getIdentifyManager().getActiveplayers().forEach(uuid -> {MainCommandManager.getIdentifyManager().hide(uuid);});
     }
 
     private boolean setupEconomy() {

@@ -88,6 +88,7 @@ public class EditHologramInterface {
         nbti4.setString("ButtonAct", "addrent");
         nbti4.setInteger("LineCount", line);
 
+        inv.setItem(0, nbti4.getItem());
         inv.setItem(3, nbti2.getItem());
         inv.setItem(4, nbti.getItem());
         inv.setItem(5, nbti1.getItem());
@@ -113,19 +114,11 @@ public class EditHologramInterface {
             player.openInventory(i);
         }
 
-        //next logic edit line or cancel rent
         if (action.equalsIgnoreCase("editline")) {
-            // edit selected line!
-            //get input
-            //change in config the selected line with the new input
-            //make chnages to check for filters and stuff
-            //update hologram
             player.closeInventory();
 
             if (ConfigManager.getInputMethod().equalsIgnoreCase("CHAT")) {
                 GetUserInput.getUserInput(player, "Input a new text for line!", input -> {
-                    //input logic to edit to config file
-                    //player.sendMessage(input);
 
                     //filter baddie words!!!
                     if (!player.hasPermission("rentableholograms.filter.profanity.bypass") && BlacklistManager.verifyText(input)) {
@@ -272,6 +265,8 @@ public class EditHologramInterface {
 
             HologramsConfig.saveHologramsConfig();
             HologramsConfig.reloadHologramsConfig();
+
+            Bukkit.getScheduler().scheduleSyncDelayedTask(RentableHolograms.getInstance(), () -> HologramManager.updateHologram(hologramID), 1);
 
             LogManager.logToFile("Player " + player.getName() + " Extended rent (Hologram ID " + hologramID + ")");
 

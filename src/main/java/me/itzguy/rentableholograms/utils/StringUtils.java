@@ -20,7 +20,8 @@ public class StringUtils {
                 version.contains("1.17") ||
                 version.contains("1.18") ||
                 version.contains("1.19") ||
-                version.contains("1.20")) {
+                version.contains("1.20") ||
+                version.contains("1.21")) {
 
             Matcher match = hexPatternt.matcher(text);
 
@@ -128,13 +129,11 @@ public class StringUtils {
     }
 
     public static List<String> compressList(String[] list) {
-        //remove empty spaces from bottom of list until value found
         List<String> finalList = new ArrayList<>();
         int lastI = 0;
         for (int i = list.length-1; i >= 0 ; i--) {
             if (list[i] == null || list[i].isEmpty()) {
-                //line is empty continue deleting...
-            } else { // hit a value stop
+            } else {
                 lastI = i;
                 break;
             }

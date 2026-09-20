@@ -51,10 +51,9 @@ public class Identify extends SubCommand {
         List<Hologram> hs = new ArrayList<>();
 
         HologramManager.getHologramObjectMap().forEach((id, hologram) -> {
-            double y = hologram.hologram.getLocation().getY();
+            Location l = hologram.location.clone();
+            l.add(0, 0.3, 0);
 
-            Location l = hologram.location;
-            l.setY(y + 0.3);
 
             Hologram h = DHAPI.createHologram(UUID.randomUUID().toString(), l);
 
@@ -100,5 +99,19 @@ public class Identify extends SubCommand {
         });
 
         hologramsList.remove(player.getUniqueId());
+    }
+
+    public void hide(UUID uuid) {
+        if (!hologramsList.containsKey(uuid)) return;
+
+        hologramsList.get(uuid).forEach(h -> {
+            h.delete();
+        });
+
+        hologramsList.remove(uuid);
+    }
+
+    public Set<UUID> getActiveplayers() {
+        return hologramsList.keySet();
     }
 }
